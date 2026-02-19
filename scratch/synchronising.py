@@ -2,6 +2,11 @@ from picamera2 import Picamera2
 import subprocess
 import time
 
+# test code for synchronising 2 RPi5 camera modules
+# better practice to use subprocesses.run vs subprocesses.popen
+# .run is a high level wrapper for .popen
+# maybe look more into this???
+
 camera_info_list = Picamera2.global_camera_info()
 num_cams = len(camera_info_list)
 
