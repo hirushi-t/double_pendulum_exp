@@ -8,17 +8,24 @@ import adafruit_mlx90640
 def record_thermal_data(duration_seconds):
     error_count = 0
 
+    # initialise the thermal camera over I2C
     i2c = busio.I2C(board.SCL, board.SDA)
     mlx = adafruit_mlx90640.MLX90640(i2c)
 
-    # Set refresh rate
+    # Set refresh rate to __ frames per second
     mlx.refresh_rate = adafruit_mlx90640.RefreshRate.REFRESH_16_HZ
 
+    # Stores 1 frame of temp data
     frame_buffer = [0] * 768
+
+    # Stores all captured frames
     recorded_frames = []
-    frame_times = []  # <-- new list to store timestamps
+
+    #Stores timestamps
+    frame_times = []  
 
     start_time = time.monotonic()
+    
     while time.monotonic() - start_time < duration_seconds:
         try:
             mlx.getFrame(frame_buffer)
